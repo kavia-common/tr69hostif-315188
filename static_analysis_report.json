@@ -1,0 +1,108 @@
+{
+  "project": "tr69hostif-315188",
+  "timestamp_utc": "2026-02-04T00:00:00Z",
+  "coverage_notes": [
+    "clang/clang-tidy not installed; cppcheck not installed.",
+    "autotools (autoreconf/configure) not installed and no pre-generated configure/Makefile present, preventing full project build-based diagnostics.",
+    "Partial GCC -fsyntax-only analysis executed on selected C files."
+  ],
+  "tools": [
+    {
+      "name": "gcc",
+      "version": "gcc (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0",
+      "invocation_pattern": "gcc -fsyntax-only -Wall -Wextra -Wpedantic -Wshadow -Wformat=2 -Wconversion -Wsign-conversion -Wstrict-prototypes -Wmissing-prototypes -Wold-style-definition ... <file>"
+    }
+  ],
+  "findings": [
+    {
+      "tool": "gcc",
+      "file": "src/backgroundrun.c",
+      "line": 28,
+      "severity": "warning",
+      "category": "C-Style/Prototypes",
+      "message": "function declaration isn’t a prototype [-Wstrict-prototypes]",
+      "suggested_fix": "Use a proper prototype: change `void usage()` to `static void usage(void)` (and ensure declaration matches definition)."
+    },
+    {
+      "tool": "gcc",
+      "file": "src/backgroundrun.c",
+      "line": 28,
+      "severity": "warning",
+      "category": "C-Style/OldStyleDefinition",
+      "message": "old-style function definition [-Wold-style-definition]",
+      "suggested_fix": "Modernize function signature to ANSI C style with explicit parameter list (e.g., `(void)` for no parameters)."
+    },
+    {
+      "tool": "gcc",
+      "file": "src/unittest/stubs/paramMgr.c",
+      "line": 1,
+      "severity": "error",
+      "category": "Build/Dependencies",
+      "message": "fatal error: glib.h: No such file or directory",
+      "suggested_fix": "Install GLib development headers and/or add correct include flags from pkg-config (e.g., `pkg-config --cflags glib-2.0`)."
+    },
+    {
+      "tool": "gcc",
+      "file": "src/unittest/stubs/secure_wrapper.c",
+      "line": 40,
+      "severity": "warning",
+      "category": "Portability/NonStandard",
+      "message": "ISO C does not permit named variadic macros (args...) [-Wpedantic]",
+      "suggested_fix": "Rewrite variadic macros using standard C99 `...` and `__VA_ARGS__`."
+    },
+    {
+      "tool": "gcc",
+      "file": "src/unittest/stubs/secure_wrapper.c",
+      "line": 51,
+      "severity": "warning",
+      "category": "Portability/GNUExtension",
+      "message": "ISO C forbids braced-groups within expressions `({ ... })` used by macro FAIL [-Wpedantic]",
+      "suggested_fix": "Replace statement-expression macro with a `do { ... } while (0)` macro or an inline function returning an error code."
+    },
+    {
+      "tool": "gcc",
+      "file": "src/unittest/stubs/secure_wrapper.c",
+      "line": 86,
+      "severity": "warning",
+      "category": "Maintainability/Shadowing",
+      "message": "local variable `task` shadows a global declaration [-Wshadow] (repeated many times)",
+      "suggested_fix": "Rename either the global `task` object or local `task` variables to avoid shadowing (or reduce scope of the global)."
+    },
+    {
+      "tool": "gcc",
+      "file": "src/unittest/stubs/secure_wrapper.c",
+      "line": 88,
+      "severity": "warning",
+      "category": "C-Style/Prototypes",
+      "message": "function declaration isn’t a prototype / old-style function definition (e.g., new_task())",
+      "suggested_fix": "Use proper prototypes: `static <ret> new_task(void)` etc., and add forward declarations in a header if these are intended to be used externally."
+    },
+    {
+      "tool": "gcc",
+      "file": "src/unittest/stubs/secure_wrapper.c",
+      "line": 806,
+      "severity": "warning",
+      "category": "API/Prototypes",
+      "message": "no previous prototype for 'v_secure_system' [-Wmissing-prototypes]",
+      "suggested_fix": "Add a prototype in an appropriate header (or mark function `static` if it is internal to the translation unit)."
+    },
+    {
+      "tool": "gcc",
+      "file": "src/unittest/stubs/secure_wrapper.c",
+      "line": 977,
+      "severity": "warning",
+      "category": "API/Prototypes",
+      "message": "no previous prototype for 'v_secure_popen' [-Wmissing-prototypes]",
+      "suggested_fix": "Add a prototype (or mark `static` if internal)."
+    },
+    {
+      "tool": "gcc",
+      "file": "src/unittest/stubs/secure_wrapper.c",
+      "line": 410,
+      "severity": "warning",
+      "category": "Correctness/Conversion",
+      "message": "conversion from ‘int’ to ‘char’ may change value [-Wconversion] (e.g., `temp[o++] = match;`)",
+      "suggested_fix": "Make types explicit and safe: ensure `match` is within signed/unsigned char range or cast via `unsigned char` with validation."
+    }
+  ]
+}
